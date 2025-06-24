@@ -25,6 +25,8 @@ button {
 .preview {
     margin-top: 10px;
     transform: scaleX(-1);
+    width: 200px;
+    height: 240px;
 }
 
 video.selfie {

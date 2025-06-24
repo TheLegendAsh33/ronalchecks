@@ -46,8 +46,8 @@ let imgs = surroundingImages
 
 pdfContent.innerHTML = `
     <div style="font-family: Arial; padding: 20px;">
-        <h2 style="text-align:center;">User Information</h2>
-        <img src="${selfie}" style="width:140px;display:block;margin:10px auto; transform: scaleX(-1);">
+        <h2>User Information</h2>
+        <img src="${selfie}" style="width:350px; height:350px; display:block; margin:10px auto; transform: scaleX(-1);">
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Age:</strong> ${age}</p>
         <p><strong>Gender:</strong> ${gender}</p>
