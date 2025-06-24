@@ -57,10 +57,22 @@
 
   <script>
     // Start webcam
+navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
+  .then(stream => {
+    document.getElementById('video').srcObject = stream;
+  })
+  .catch(err => {
+    // Fallback to default camera if back camera is not available
+    console.warn('Back camera not available, using default', err);
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         document.getElementById('video').srcObject = stream;
+      })
+      .catch(e => {
+        alert('Camera access denied or not available.');
+        console.error(e);
       });
+  });
 
     // Capture multiple images
     function capture() {
