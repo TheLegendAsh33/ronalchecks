@@ -56,11 +56,15 @@ let imgs = surroundingImages
 pdfContent.innerHTML = `
     <div style="font-family: Arial; padding: 20px;">
         <h2>User Information</h2>
-        <img src="${selfie}" style="width: 140px; height: 180px; margin:10px auto; transform: scaleX(-1);">
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Age:</strong> ${age}</p>
-        <p><strong>Gender:</strong> ${gender}</p>
-        <p><strong>Hobbies:</strong> ${hobbies}</p>
+        <div style="display:flex">
+            <img src="${selfie}" style="width: 140px; height: 180px; margin:10px auto; transform: scaleX(-1);">
+            <div>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Age:</strong> ${age}</p>
+                <p><strong>Gender:</strong> ${gender}</p>
+                <p><strong>Hobbies:</strong> ${hobbies}</p>
+            </div>
+        </div>
         <hr />
         <h3>Surroundings:</h3>
         ${imgs}
