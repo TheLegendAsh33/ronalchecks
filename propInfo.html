@@ -56,10 +56,10 @@
       const selfie = sessionStorage.getItem('selfie');
       const filename = (document.getElementById('pdfName').value || "User_Info") + ".pdf";
 
-      let content = document.createElement('div');
+      let pdfContent = document.createElement('div');
       let imgs = surroundingImages.map(src => `<img src="${src}" style="width:140px;margin:10px auto;display:block;">`).join('');
 
-      content.innerHTML = `
+      pdfContent.innerHTML = `
         <div style="font-family: Arial; padding: 20px;">
           <h2 style="text-align:center;">User Information</h2>
           <img src="${selfie}" style="width:140px;display:block;margin:10px auto;">
@@ -74,12 +74,12 @@
       `;
 
       html2pdf().set({
-  margin:       10, // mm
-  filename:     filename,
-  image:        { type: 'png', quality: 1 }, // best image quality
-  html2canvas:  { scale: 4, useCORS: true }, // high rendering resolution
-  jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } // proper A4 size
-}).from(pdfContent).save();
+        margin:       10, // mm
+        filename:     filename,
+        image:        { type: 'png', quality: 1 }, // best image quality
+        html2canvas:  { scale: 4, useCORS: true }, // high rendering resolution
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } // proper A4 size
+      }).from(pdfContent).save();
     }
   </script>
 </body>
