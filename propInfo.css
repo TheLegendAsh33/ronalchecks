@@ -34,3 +34,7 @@ button {
     width: 100px;
     border: 1px solid #ccc;
 }
+
+.gallery img:hover {
+  outline: 2px solid red;
+}

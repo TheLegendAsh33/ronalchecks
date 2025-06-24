@@ -21,9 +21,18 @@ canvas.height = 480;
 ctx.drawImage(video, 0, 0, 640, 480);
 const dataURL = canvas.toDataURL("image/jpeg");
 surroundingImages.push(dataURL);
-
 const img = document.createElement("img");
 img.src = dataURL;
+img.style.cursor = "pointer";
+img.title = "Click to delete this photo";
+
+img.addEventListener("click", function () {
+// Remove image from DOM
+gallery.removeChild(img);
+// Remove image from array
+surroundingImages = surroundingImages.filter((url) => url !== dataURL);
+});
+
 gallery.appendChild(img);
 }
 
