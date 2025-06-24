@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Step 2 - Surrounding & Export</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: Arial; padding: 20px; max-width: 700px; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    video, canvas { width: 100%; max-width: 320px; display: block; margin: 10px 0; }
+    button { margin-top: 10px; padding: 10px 15px; }
+    .gallery { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .gallery img { width: 100px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h2>Step 2: Capture Surroundings</h2>
+
+  <video id="video" autoplay playsinline></video>
+  <button onclick="captureSurrounding()">Capture Surrounding</button>
+  <canvas id="canvas" width="160" height="120" style="display:none;"></canvas>
+  <div class="gallery" id="gallery"></div>
+
+  <label>PDF File Name: <input type="text" id="pdfName" placeholder="e.g. user_form" /></label>
+  <button onclick="downloadPDF()">Download PDF</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const gallery = document.getElementById('gallery');
+    let surroundingImages = [];
+
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
+      .then(stream => video.srcObject = stream)
+      .catch(() => navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => video.srcObject = stream)
+        .catch(err => alert("Camera not accessible.")));
+
+    function captureSurrounding() {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataURL = canvas.toDataURL('image/jpeg');
+      surroundingImages.push(dataURL);
+
+      const img = document.createElement('img');
+      img.src = dataURL;
+      gallery.appendChild(img);
+    }
+
+    function downloadPDF() {
+      const name = sessionStorage.getItem('name');
+      const age = sessionStorage.getItem('age');
+      const gender = sessionStorage.getItem('gender');
+      const hobbies = sessionStorage.getItem('hobbies');
+      const selfie = sessionStorage.getItem('selfie');
+      const filename = (document.getElementById('pdfName').value || "User_Info") + ".pdf";
+
+      let content = document.createElement('div');
+      let imgs = surroundingImages.map(src => `<img src="${src}" style="width:140px;margin:10px auto;display:block;">`).join('');
+
+      content.innerHTML = `
+        <div style="font-family: Arial; padding: 20px;">
+          <h2 style="text-align:center;">User Information</h2>
+          <img src="${selfie}" style="width:140px;display:block;margin:10px auto;">
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Age:</strong> ${age}</p>
+          <p><strong>Gender:</strong> ${gender}</p>
+          <p><strong>Hobbies:</strong> ${hobbies}</p>
+          <hr />
+          <h3>Surroundings:</h3>
+          ${imgs}
+        </div>
+      `;
+
+      html2pdf().set({
+        margin: 10,
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.8 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(content).save();
+    }
+  </script>
+</body>
+</html>
