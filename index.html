@@ -17,7 +17,7 @@
 
   <video id="video" autoplay playsinline></video>
   <button onclick="captureSelfie()">Capture Selfie</button>
-  <canvas id="canvas" width="160" height="120" style="display:none;"></canvas>
+  <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
   <img id="selfiePreview" class="preview" />
 
   <label>Name: <input type="text" id="name" /></label>
@@ -44,7 +44,10 @@
       .catch(err => alert("Front camera not accessible."));
 
     function captureSelfie() {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.width = 640;
+      canvas.height = 480;
+      ctx.drawImage(video, 0, 0, 640, 480);
       const dataURL = canvas.toDataURL('image/jpeg');
       document.getElementById('selfiePreview').src = dataURL;
       sessionStorage.setItem('selfie', dataURL);
