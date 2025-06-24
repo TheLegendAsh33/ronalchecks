@@ -1,76 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Step 1 - Selfie & Info</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body { font-family: Arial; padding: 20px; max-width: 700px; margin: auto; }
-    label { display: block; margin-top: 10px; }
-    video, canvas { width: 100%; max-width: 320px; display: block; margin: 10px 0; }
-    button { margin-top: 10px; padding: 10px 15px; }
-    .preview { margin-top: 10px; }
-  </style>
-</head>
-<body>
-  <h2>Step 1: Take a Selfie & Fill Your Info</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ronal Checks</title>
+    <link rel="stylesheet" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h2>User Info</h2>
 
-  <video id="video" autoplay playsinline></video>
-  <button onclick="captureSelfie()">Capture Selfie</button>
-  <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-  <img id="selfiePreview" class="preview" />
+    <video id="video" autoplay playsinline class="selfie"></video>
+    <button onclick="captureSelfie()">Capture Selfie</button>
+    <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
+    <img id="selfiePreview" class="preview" />
 
-  <label>Name: <input type="text" id="name" /></label>
-  <label>Age: <input type="number" id="age" /></label>
+    <label>Name: <input type="text" id="name" /></label>
+    <label>Age: <input type="number" id="age" /></label>
 
-  <label>Gender:</label>
-  <label><input type="radio" name="gender" value="Male" /> Male</label>
-  <label><input type="radio" name="gender" value="Female" /> Female</label>
+    <label>Gender:</label>
+    <label><input type="radio" name="gender" value="Male" /> Male</label>
+    <label><input type="radio" name="gender" value="Female" /> Female</label>
 
-  <label>Hobbies:</label>
-  <label><input type="checkbox" value="Reading" class="hobby" /> Reading</label>
-  <label><input type="checkbox" value="Traveling" class="hobby" /> Traveling</label>
-  <label><input type="checkbox" value="Sports" class="hobby" /> Sports</label>
+    <label>Hobbies:</label>
+    <label><input type="checkbox" value="Reading" class="hobby" /> Reading</label>
+    <label><input type="checkbox" value="Traveling" class="hobby" />Traveling</label>
+    <label><input type="checkbox" value="Sports" class="hobby" /> Sports</label>
 
-  <button onclick="goToNext()">Next</button>
+    <button onclick="goToNext()">Next</button>
 
-  <script>
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
-      .then(stream => video.srcObject = stream)
-      .catch(err => alert("Front camera not accessible."));
-
-    function captureSelfie() {
-      // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      canvas.width = 640;
-      canvas.height = 480;
-      ctx.drawImage(video, 0, 0, 640, 480);
-      const dataURL = canvas.toDataURL('image/jpeg');
-      document.getElementById('selfiePreview').src = dataURL;
-      sessionStorage.setItem('selfie', dataURL);
-    }
-
-    function goToNext() {
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
-      const hobbies = Array.from(document.querySelectorAll('.hobby:checked')).map(cb => cb.value).join(', ');
-
-      sessionStorage.setItem('name', name);
-      sessionStorage.setItem('age', age);
-      sessionStorage.setItem('gender', gender);
-      sessionStorage.setItem('hobbies', hobbies);
-
-      if (!sessionStorage.getItem('selfie')) {
-        alert("Please capture a selfie.");
-        return;
-      }
-
-      window.location.href = "propInfo.html";
-    }
-  </script>
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
