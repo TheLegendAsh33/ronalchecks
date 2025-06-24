@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Info Capture & PDF Export (Multi-Photo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial; max-width: 700px; margin: auto; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    video, canvas { display: block; margin: 10px 0; max-width: 100%; }
+    button { margin-top: 15px; padding: 10px 15px; }
+    .photo-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .photo-wrapper { position: relative; display: inline-block; }
+    .photo-wrapper img { width: 120px; height: auto; border: 1px solid #ccc; }
+    .delete-btn {
+      position: absolute;
+      top: 2px; right: 2px;
+      background: red; color: white;
+      border: none; border-radius: 50%;
+      width: 20px; height: 20px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="form-section">
+    <h2>User Information</h2>
+
+    <!-- Camera View -->
+    <video id="video" width="320" height="240" autoplay></video>
+    <button onclick="capture()">Capture Photo</button>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+
+    <!-- Thumbnails -->
+    <div id="photoGallery" class="photo-container"></div>
+
+    <!-- Form Fields -->
+    <label>Name: <input type="text" id="name"></label>
+    <label>Age: <input type="number" id="age"></label>
+
+    <label>Gender:</label>
+    <label><input type="radio" name="gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" value="Female"> Female</label>
+
+    <label>Hobbies:</label>
+    <label><input type="checkbox" value="Reading" class="hobby"> Reading</label>
+    <label><input type="checkbox" value="Traveling" class="hobby"> Traveling</label>
+    <label><input type="checkbox" value="Sports" class="hobby"> Sports</label>
+
+    <!-- PDF Export -->
+    <button onclick="generatePDF()">Download as PDF</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <script>
+    // Start webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        document.getElementById('video').srcObject = stream;
+      });
+
+    // Capture multiple images
+    function capture() {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const imageData = canvas.toDataURL('image/png');
+      addPhotoThumbnail(imageData);
+    }
+
+    // Add thumbnail to gallery
+    function addPhotoThumbnail(dataURL) {
+      const gallery = document.getElementById('photoGallery');
+      const wrapper = document.createElement('div');
+      wrapper.className = 'photo-wrapper';
+
+      const img = document.createElement('img');
+      img.src = dataURL;
+
+      const delBtn = document.createElement('button');
+      delBtn.innerText = '×';
+      delBtn.className = 'delete-btn';
+      delBtn.onclick = () => wrapper.remove();
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(delBtn);
+      gallery.appendChild(wrapper);
+    }
+
+    // Generate PDF with all photos and form data
+    function generatePDF() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
+      const hobbies = Array.from(document.querySelectorAll('.hobby:checked')).map(cb => cb.value).join(', ');
+      const images = Array.from(document.querySelectorAll('#photoGallery img')).map(img => img.src);
+
+      const pdfContent = document.createElement('div');
+      let imageHTML = images.map(src =>
+        `<img src="${src}" style="width:150px; display:block; margin: 10px auto;">`
+      ).join('');
+
+      pdfContent.innerHTML = `
+        <div style="padding: 20px; font-family: Arial; border: 1px solid #ccc;">
+          <h2 style="text-align:center;">User Info</h2>
+          ${imageHTML}
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Age:</strong> ${age}</p>
+          <p><strong>Gender:</strong> ${gender}</p>
+          <p><strong>Hobbies:</strong> ${hobbies}</p>
+        </div>
+      `;
+
+html2pdf().set({
+  margin:       10, // mm
+  filename:     'UserInfo_HighQuality_A4.pdf',
+  image:        { type: 'png', quality: 1 }, // best image quality
+  html2canvas:  { scale: 4, useCORS: true }, // high rendering resolution
+  jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } // proper A4 size
+}).from(pdfContent).save();
+    }
+  </script>
+
+</body>
+</html>
