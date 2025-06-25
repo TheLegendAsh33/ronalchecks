@@ -9,8 +9,9 @@
   <body>
     <h2>User Info</h2>
 
-    <video id="video" autoplay playsinline class="selfie"></video>
+    <video id="video" autoplay playsinline class="selfie" style="display:none;"></video>
     <button onclick="captureSelfie()">Capture Selfie</button>
+    <button id="snapBtn" onclick="takePhoto()" style="display: none;">Take Photo</button>
     <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
     <br>
     <img id="selfiePreview" class="preview"/>

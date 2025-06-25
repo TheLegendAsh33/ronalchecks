@@ -2,19 +2,28 @@ const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
-  .then(stream => {
-    video.srcObject = stream;
-    video.play();
-  })
-  .catch(err => alert("Unable to access front camera."));
+let streamStarted = false;
 
 function captureSelfie() {
-  // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  // Flip context horizontally (mirror fix)
+  if (!streamStarted) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+      .then(stream => {
+        video.srcObject = stream;
+        video.play();
+        streamStarted = true;
+
+        video.style.display = "block";
+        snapBtn.style.display = "inline-block"; // Show "Take Photo" button
+      })
+      .catch(err => alert("Unable to access front camera."));
+  }
+}
+
+function takePhoto() {
+  // Mirror fix
   ctx.save();
   ctx.translate(canvas.width, 0);
-  ctx.scale(-1,1); // mirror fix
+  ctx.scale(-1, 1);
   canvas.width = 640;
   canvas.height = 480;
   ctx.drawImage(video, 0, 0, 640, 480);
@@ -23,6 +32,16 @@ function captureSelfie() {
   const dataURL = canvas.toDataURL('image/jpeg');
   document.getElementById('selfiePreview').src = dataURL;
   sessionStorage.setItem('selfie', dataURL);
+
+  // Stop the camera
+  const stream = video.srcObject;
+  const tracks = stream.getTracks();
+  tracks.forEach(track => track.stop());
+  video.srcObject = null;
+  streamStarted = false;
+
+  video.style.display = "none";
+  snapBtn.style.display = "none"; // Hide "Take Photo" button
 }
 
 function goToNext() {

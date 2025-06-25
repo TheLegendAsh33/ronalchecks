@@ -42,8 +42,7 @@ const age = sessionStorage.getItem("age");
 const gender = sessionStorage.getItem("gender");
 const hobbies = sessionStorage.getItem("hobbies");
 const selfie = sessionStorage.getItem("selfie");
-const filename =
-(document.getElementById("pdfName").value || "User_Info") + ".pdf";
+const filename = (document.getElementById("pdfName").value || "User_Info") + ".pdf";
 
 let pdfContent = document.createElement("div");
 let imgs = surroundingImages
