@@ -49,7 +49,7 @@ let pdfContent = document.createElement("div");
 let imgs = surroundingImages
 .map(
     (src) =>
-    `<img src="${src}" style="display:block; margin: 10px auto; max-width: 100%;">`
+    `<img src="${src}" style="display:block; margin: 10px auto; width:500px; height:500px">`
 )
 .join("");
 
