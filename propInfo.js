@@ -6,7 +6,7 @@ document.getElementById("inspectionDT").value = new Date().toLocaleString();
 function startCamera(type) {
   stopCamera(); // Stop if already running
 
-  const facingMode = (type === 'aadhaar') ? 'user' : { exact: "environment" };
+  const facingMode = { exact: "environment" }; // Always use back camera
   const videoElem = document.getElementById(`${type}Video`);
 
   navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
@@ -16,7 +16,7 @@ function startCamera(type) {
       videoElem.style.display = "block";
       videoElem.play();
     })
-    .catch(() => alert("Unable to access camera."));
+    .catch(() => alert("Unable to access back camera."));
 }
 
 function stopCamera() {
