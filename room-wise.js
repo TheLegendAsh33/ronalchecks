@@ -55,8 +55,9 @@ function capturePhoto(room, feature, blockId) {
   img.style.margin = "5px";
   document.getElementById(`${blockId}_preview`).appendChild(img);
 
-  stopCamera();
+  // ✅ Do NOT stop camera here — keep it open for more clicks
 }
+
 
 function createFeatureBlock(room, feature, label) {
   const blockId = `${room}_${feature}`;
