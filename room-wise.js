@@ -6,24 +6,24 @@ const gallery = document.getElementById("gallery");
 let currentStream = null;
 let capturedImages = {};
 
-function startCamera(callback) {
-  stopCamera();
+function startCamera(blockId) {
+  stopCamera(); // stop any other stream first
+  const videoElem = document.getElementById(`${blockId}_video`);
+
   navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
     .then(stream => {
-      video.srcObject = stream;
-      video.play();
-      video.style.display = "block";
+      videoElem.srcObject = stream;
+      videoElem.style.display = "block";
+      videoElem.play();
       currentStream = stream;
-      if (callback) callback();
     })
     .catch(() =>
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
-          video.srcObject = stream;
-          video.play();
-          video.style.display = "block";
+          videoElem.srcObject = stream;
+          videoElem.style.display = "block";
+          videoElem.play();
           currentStream = stream;
-          if (callback) callback();
         })
         .catch(() => alert("Camera not accessible."))
     );
@@ -33,14 +33,16 @@ function stopCamera() {
   if (currentStream) {
     currentStream.getTracks().forEach(track => track.stop());
     currentStream = null;
-    video.style.display = "none";
   }
+
+  document.querySelectorAll("video").forEach(v => v.style.display = "none");
 }
 
-function capturePhoto(room, feature) {
+function capturePhoto(room, feature, blockId) {
+  const videoElem = document.getElementById(`${blockId}_video`);
   canvas.width = 640;
   canvas.height = 480;
-  ctx.drawImage(video, 0, 0, 640, 480);
+  ctx.drawImage(videoElem, 0, 0, 640, 480);
   const dataURL = canvas.toDataURL("image/jpeg");
 
   if (!capturedImages[room]) capturedImages[room] = {};
@@ -51,20 +53,24 @@ function capturePhoto(room, feature) {
   img.src = dataURL;
   img.style.width = "150px";
   img.style.margin = "5px";
-  document.getElementById(`${room}_${feature}_preview`).appendChild(img);
+  document.getElementById(`${blockId}_preview`).appendChild(img);
+
+  stopCamera();
 }
 
 function createFeatureBlock(room, feature, label) {
+  const blockId = `${room}_${feature}`;
   const container = document.createElement("div");
   container.innerHTML = `
     <h4>${label}</h4>
+    <video id="${blockId}_video" style="display:none;" autoplay playsinline></video>
     <div>
-      <button onclick="startCamera()">Open Camera</button>
-      <button onclick="capturePhoto('${room}', '${feature}')">Take Photo</button>
-      <div id="${room}_${feature}_preview" class="preview-area"></div>
+      <button onclick="startCamera('${blockId}')">Open Camera</button>
+      <button onclick="capturePhoto('${room}', '${feature}', '${blockId}')">Take Photo</button>
     </div>
-    <label><input type="radio" name="${room}_${feature}_status" value="Good" /> Good</label>
-    <label><input type="radio" name="${room}_${feature}_status" value="Fix Required" /> Fix Required</label>
+    <div id="${blockId}_preview" class="preview-area"></div>
+    <label><input type="radio" name="${blockId}_status" value="Good" /> Good</label>
+    <label><input type="radio" name="${blockId}_status" value="Fix Required" /> Fix Required</label>
   `;
   return container;
 }
