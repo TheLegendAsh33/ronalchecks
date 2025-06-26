@@ -53,10 +53,20 @@ function capturePhoto(room, feature, blockId) {
   img.src = dataURL;
   img.style.width = "150px";
   img.style.margin = "5px";
-  document.getElementById(`${blockId}_preview`).appendChild(img);
+  img.style.cursor = "pointer";
+  img.title = "Click to delete";
 
-  // ✅ Do NOT stop camera here — keep it open for more clicks
+  img.addEventListener("click", () => {
+    img.remove();
+    const index = capturedImages[room][feature].indexOf(dataURL);
+    if (index > -1) {
+      capturedImages[room][feature].splice(index, 1);
+    }
+  });
+
+  document.getElementById(`${blockId}_preview`).appendChild(img);
 }
+
 
 
 function createFeatureBlock(room, feature, label) {
