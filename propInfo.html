@@ -42,19 +42,6 @@
 
   <label>Owner Name: <input type="text" id="ownerName" /></label><br>
   <label>Phone Number: <input type="tel" id="phone" /></label><br>
-  <label>Aadhaar Number: <input type="text" id="aadhaar" /></label><br>
-
-  <h3>Capture Aadhaar Photos (max 2)</h3>
-  <video id="aadhaarVideo" style="display: none;" autoplay playsinline></video><br>
-  <button onclick="startCamera('aadhaar')">Open Aadhaar Camera</button>
-  <button onclick="capturePhoto('aadhaar')">Take Aadhaar Photo</button>
-  <div id="aadhaarPreview"></div>
-
-  <h3>Capture Owner Photo</h3>
-  <video id="ownerVideo" style="display: none;" autoplay playsinline></video><br>
-  <button onclick="startCamera('owner')">Open Owner Camera</button>
-  <button onclick="capturePhoto('owner')">Take Owner Photo</button><br>
-  <img id="ownerPreview" style="width:150px; margin-top:10px;" />
 
   <br><br>
   <button onclick="goToRoomInspection()">Next</button>

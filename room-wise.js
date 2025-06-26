@@ -148,8 +148,6 @@ function toggleBathroom(room, el) {
 function downloadPDF() {
   const propertyData = JSON.parse(sessionStorage.getItem("propertyData"));
   const ownerData = JSON.parse(sessionStorage.getItem("ownerData"));
-  const ownerPhoto = sessionStorage.getItem("ownerPhoto");
-  const aadhaarPhotos = JSON.parse(sessionStorage.getItem("aadhaarPhotos") || "[]");
 
   let html = `<div style="font-family:Arial; padding:20px;">`;
   html += `<h2>Property & Owner Info</h2>`;
