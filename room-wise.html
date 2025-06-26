@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Room Inspection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>Room-wise Inspection</h2>
+    <video id="video" style="display: none" autoplay playsinline></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <div id="inspectionSection"></div>
+    <label
+      >PDF File Name:
+      <input type="text" id="pdfName" placeholder="e.g. inspection_report"
+    /></label>
+    <button onclick="downloadPDF()">Download PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="room-wise.js"></script>
+  </body>
+</html>

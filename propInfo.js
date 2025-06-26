@@ -1,83 +1,102 @@
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const gallery = document.getElementById("gallery");
-let surroundingImages = [];
+let currentStream = null;
+let aadhaarPhotos = [];
 
-navigator.mediaDevices
-.getUserMedia({ video: { facingMode: { exact: "environment" } } })
-.then((stream) => (video.srcObject = stream))
-.catch(() =>
-navigator.mediaDevices
-    .getUserMedia({ video: true })
-    .then((stream) => (video.srcObject = stream))
-    .catch((err) => alert("Camera not accessible."))
-);
+document.getElementById("inspectionDT").value = new Date().toLocaleString();
 
-function captureSurrounding() {
-// ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-canvas.width = 640;
-canvas.height = 480;
-ctx.drawImage(video, 0, 0, 640, 480);
-const dataURL = canvas.toDataURL("image/jpeg");
-surroundingImages.push(dataURL);
-const img = document.createElement("img");
-img.src = dataURL;
-img.style.cursor = "pointer";
-img.title = "Click to delete this photo";
+function startCamera(type) {
+  stopCamera(); // Stop if already running
 
-img.addEventListener("click", function () {
-// Remove image from DOM
-gallery.removeChild(img);
-// Remove image from array
-surroundingImages = surroundingImages.filter((url) => url !== dataURL);
-});
+  const facingMode = (type === 'aadhaar') ? 'user' : { exact: "environment" };
+  const videoElem = document.getElementById(`${type}Video`);
 
-gallery.appendChild(img);
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
+    .then(stream => {
+      currentStream = stream;
+      videoElem.srcObject = stream;
+      videoElem.style.display = "block";
+      videoElem.play();
+    })
+    .catch(() => alert("Unable to access camera."));
 }
 
-function downloadPDF() {
-const name = sessionStorage.getItem("name");
-const age = sessionStorage.getItem("age");
-const gender = sessionStorage.getItem("gender");
-const hobbies = sessionStorage.getItem("hobbies");
-const selfie = sessionStorage.getItem("selfie");
-const filename = (document.getElementById("pdfName").value || "User_Info") + ".pdf";
+function stopCamera() {
+  if (currentStream) {
+    currentStream.getTracks().forEach(track => track.stop());
+    currentStream = null;
+    document.getElementById("aadhaarVideo").style.display = "none";
+    document.getElementById("ownerVideo").style.display = "none";
+  }
+}
 
-let pdfContent = document.createElement("div");
-let imgs = surroundingImages
-.map(
-    (src) =>
-    `<img src="${src}" style="display:block; margin: 10px auto; width:500px; height:500px">`
-)
-.join("");
+function capturePhoto(type) {
+  const videoElem = document.getElementById(`${type}Video`);
+  const canvas = document.createElement("canvas");
+  canvas.width = 640;
+  canvas.height = 480;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(videoElem, 0, 0, 640, 480);
+  const dataURL = canvas.toDataURL("image/jpeg");
 
-pdfContent.innerHTML = `
-    <div style="font-family: Arial; padding: 20px;">
-        <h2>User Information</h2>
-        <div style="display:flex; padding:10px">
-            <img src="${selfie}" style="width: 140px; height:180px; padding-right:10px;transform: scaleX(-1);">
-            <div style="padding-left:20px">
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Age:</strong> ${age}</p>
-                <p><strong>Gender:</strong> ${gender}</p>
-                <p><strong>Hobbies:</strong> ${hobbies}</p>
-            </div>
-        </div>
-        <hr />
-        <h3>Surroundings:</h3>
-        ${imgs}
-    </div>
-    `;
+  if (type === 'aadhaar') {
+    if (aadhaarPhotos.length >= 2) {
+      alert("Only 2 Aadhaar images allowed.");
+      return;
+    }
+    aadhaarPhotos.push(dataURL);
+    sessionStorage.setItem("aadhaarPhotos", JSON.stringify(aadhaarPhotos));
 
-html2pdf()
-.set({
-    margin: 10,
-    filename: filename,
-    image: { type: "jpeg", quality: 1},
-    html2canvas: { scale: 4, useCORS: true },
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-})
-.from(pdfContent)
-.save();
+    const img = document.createElement("img");
+    img.src = dataURL;
+    img.style.width = "150px";
+    img.style.margin = "5px";
+    document.getElementById("aadhaarPreview").appendChild(img);
+
+  } else if (type === 'owner') {
+    document.getElementById("ownerPreview").src = dataURL;
+    sessionStorage.setItem("ownerPhoto", dataURL);
+  }
+
+  stopCamera();
+}
+
+function goToRoomInspection() {
+  const propertyData = {
+    propertyName: document.getElementById("propertyName").value.trim(),
+    address: document.getElementById("address").value.trim(),
+    type: document.getElementById("propertyType").value,
+    carpetArea: document.getElementById("carpetArea").value,
+    floor: document.getElementById("floor").value,
+    furnishing: document.getElementById("furnishing").value,
+    balcony: document.getElementById("balcony").checked ? "Yes" : "No",
+    inspectionDT: document.getElementById("inspectionDT").value,
+  };
+
+  const ownerData = {
+    name: document.getElementById("ownerName").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    aadhaar: document.getElementById("aadhaar").value.trim(),
+  };
+
+  // Basic Validation
+  if (!propertyData.propertyName || !propertyData.address || !ownerData.name || !ownerData.phone || !ownerData.aadhaar) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  if (aadhaarPhotos.length === 0) {
+    alert("Please capture Aadhaar photo(s).");
+    return;
+  }
+
+  if (!sessionStorage.getItem("ownerPhoto")) {
+    alert("Please capture Owner photo.");
+    return;
+  }
+
+  // Save to session
+  sessionStorage.setItem("propertyData", JSON.stringify(propertyData));
+  sessionStorage.setItem("ownerData", JSON.stringify(ownerData));
+
+  // Go to page 2
+  window.location.href = "room-wise.html";
 }
