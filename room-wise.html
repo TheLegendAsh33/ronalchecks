@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <title>Room Inspection</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="room-wise.css" />
   </head>
   <body>
-    <h2>Room-wise Inspection</h2>
+     <nav id="navBar">
+      <img src="logoRonal.png" alt="" id="logo">
+      <h3>Ronal Checks</h3>
+  </nav>
+    <div id="roomIndex">
+      <h2>Room-wise Inspection</h2>
     <video id="video" style="display: none" autoplay playsinline></video>
     <canvas id="canvas" style="display: none"></canvas>
     <div id="inspectionSection"></div>
@@ -16,6 +21,7 @@
       <input type="text" id="pdfName" placeholder="e.g. inspection_report"
     /></label>
     <button onclick="downloadPDF()">Download PDF</button>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="room-wise.js"></script>

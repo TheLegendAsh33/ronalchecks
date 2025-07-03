@@ -46,17 +46,17 @@ function takePhoto() {
 
 function goToNext() {
   const name = document.getElementById("name").value;
-  const age = document.getElementById("age").value;
+  const idNumber = document.getElementById("idNumber").value;
   const gender =
     document.querySelector('input[name="gender"]:checked')?.value || "";
-  const hobbies = Array.from(document.querySelectorAll(".hobby:checked"))
-    .map((cb) => cb.value)
-    .join(", ");
+  // const hobbies = Array.from(document.querySelectorAll(".hobby:checked"))
+  //   .map((cb) => cb.value)
+  //   .join(", ");
 
   sessionStorage.setItem("name", name);
-  sessionStorage.setItem("age", age);
+  sessionStorage.setItem("idNumber", idNumber);
   sessionStorage.setItem("gender", gender);
-  sessionStorage.setItem("hobbies", hobbies);
+  // sessionStorage.setItem("hobbies", hobbies);
 
   if (!sessionStorage.getItem("selfie")) {
     alert("Please capture a selfie.");

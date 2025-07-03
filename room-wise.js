@@ -86,12 +86,56 @@ function createFeatureBlock(room, feature, label) {
   return container;
 }
 
+// function buildRoomInspection() {
+//   const data = JSON.parse(sessionStorage.getItem("propertyData"));
+//   const bhk = data.type; // 1bhk, 2bhk, etc.
+//   const count = parseInt(bhk[0]);
+//   const section = document.getElementById("inspectionSection");
+
+//   for (let i = 1; i <= count; i++) {
+//     const room = `bedroom${i}`;
+//     const roomDiv = document.createElement("div");
+//     roomDiv.innerHTML = `<h3>Bedroom ${i}</h3>`;
+//     roomDiv.appendChild(createFeatureBlock(room, 'switches', 'Switches'));
+//     roomDiv.appendChild(createFeatureBlock(room, 'door', 'Doors & Locks'));
+//     roomDiv.appendChild(createFeatureBlock(room, 'walls', 'Paint & Walls'));
+//     roomDiv.appendChild(createFeatureBlock(room, 'pest', 'Pest Signs'));
+
+//     const balconyCheck = document.createElement("div");
+//     balconyCheck.innerHTML = `
+//       <label>Balcony? 
+//         <select onchange="toggleBalcony('${room}', this)">
+//           <option value="no">No</option>
+//           <option value="yes">Yes</option>
+//         </select>
+//       </label>
+//       <div id="${room}_balcony_container"></div>
+//     `;
+//     roomDiv.appendChild(balconyCheck);
+
+//     const bathCheck = document.createElement("div");
+//     bathCheck.innerHTML = `
+//       <label>Attached Bathroom? 
+//         <select onchange="toggleBathroom('${room}', this)">
+//           <option value="no">No</option>
+//           <option value="yes">Yes</option>
+//         </select>
+//       </label>
+//       <div id="${room}_bathroom_container"></div>
+//     `;
+//     roomDiv.appendChild(bathCheck);
+
+//     section.appendChild(roomDiv);
+//   }
+// }
+
 function buildRoomInspection() {
   const data = JSON.parse(sessionStorage.getItem("propertyData"));
   const bhk = data.type; // 1bhk, 2bhk, etc.
   const count = parseInt(bhk[0]);
   const section = document.getElementById("inspectionSection");
 
+  // Bedroom Sections
   for (let i = 1; i <= count; i++) {
     const room = `bedroom${i}`;
     const roomDiv = document.createElement("div");
@@ -127,7 +171,50 @@ function buildRoomInspection() {
 
     section.appendChild(roomDiv);
   }
+
+  // Hall Section
+  const hallDiv = document.createElement("div");
+  hallDiv.innerHTML = `<h3>Hall</h3>`;
+  hallDiv.appendChild(createFeatureBlock("hall", 'switches', 'Switches'));
+  hallDiv.appendChild(createFeatureBlock("hall", 'door', 'Doors & Locks'));
+  hallDiv.appendChild(createFeatureBlock("hall", 'walls', 'Paint & Walls'));
+  hallDiv.appendChild(createFeatureBlock("hall", 'pest', 'Pest Signs'));
+
+  const hallBalcony = document.createElement("div");
+  hallBalcony.innerHTML = `
+    <label>Balcony? 
+      <select onchange="toggleBalcony('hall', this)">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </label>
+    <div id="hall_balcony_container"></div>
+  `;
+  hallDiv.appendChild(hallBalcony);
+  section.appendChild(hallDiv);
+
+  // Kitchen Section
+  const kitchenDiv = document.createElement("div");
+  kitchenDiv.innerHTML = `<h3>Kitchen</h3>`;
+  kitchenDiv.appendChild(createFeatureBlock("kitchen", 'sink', 'Sink Area'));
+  kitchenDiv.appendChild(createFeatureBlock("kitchen", 'tiles', 'Floor/Walls Tiles'));
+  kitchenDiv.appendChild(createFeatureBlock("kitchen", 'chimney', 'Chimney/Exhaust'));
+  kitchenDiv.appendChild(createFeatureBlock("kitchen", 'storage', 'Storage Units'));
+
+  const kitchenBalcony = document.createElement("div");
+  kitchenBalcony.innerHTML = `
+    <label>Balcony? 
+      <select onchange="toggleBalcony('kitchen', this)">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </label>
+    <div id="kitchen_balcony_container"></div>
+  `;
+  kitchenDiv.appendChild(kitchenBalcony);
+  section.appendChild(kitchenDiv);
 }
+
 
 function toggleBalcony(room, el) {
   const container = document.getElementById(`${room}_balcony_container`);
@@ -146,26 +233,28 @@ function toggleBathroom(room, el) {
 }
 
 function downloadPDF() {
+  const selfieRaw = sessionStorage.getItem("selfie");
+  const selfie = `<img src="${selfieRaw}" width="150"style="transform: scaleX(-1);"/>`;
+  const name = sessionStorage.getItem("name");
+  const idNumber = sessionStorage.getItem("idNumber");
+  const gender = sessionStorage.getItem("gender");
   const propertyData = JSON.parse(sessionStorage.getItem("propertyData"));
   const ownerData = JSON.parse(sessionStorage.getItem("ownerData"));
 
   let html = `<div style="font-family:Arial; padding:20px;">`;
+  html += `<h2>User Info</h2>`;
+  html += selfie;
+  html += `<p>Name:</strong> ${name}</p>` ;
+  html += `<p>Age:</strong> ${idNumber}</p>`;
+  html += `<p>Gender:</strong> ${gender}</p>`;
   html += `<h2>Property & Owner Info</h2>`;
   html += `<p><strong>Property:</strong> ${propertyData.propertyName}, ${propertyData.type}, ${propertyData.carpetArea} sqft, Floor ${propertyData.floor}, ${propertyData.furnishing}</p>`;
   html += `<p><strong>Address:</strong> ${propertyData.address}</p>`;
-  html += `<p><strong>Inspection:</strong> ${propertyData.inspectionDT}</p>`;
-  html += `<p><strong>Owner:</strong> ${ownerData.name}, ${ownerData.phone}, Aadhaar: ${ownerData.aadhaar}</p>`;
-
-  if (ownerPhoto) {
-    html += `<img src="${ownerPhoto}" style="width:120px; height:150px; float:right;" />`;
-  }
-
-  aadhaarPhotos.forEach(photo => {
-    html += `<img src="${photo}" style="width:120px; height:150px; margin-right:5px;" />`;
-  });
+  html += `<p><strong>Inspection Date & Time:</strong> ${propertyData.inspectionDT}</p>`;
+  html += `<p><strong>Owner:</strong> ${ownerData.name}, ${ownerData.phone}</p>`;
 
   html += `<hr/><h3>Room-wise Inspection</h3>`;
-
+  
   Object.entries(capturedImages).forEach(([room, features]) => {
     html += `<h4>${room}</h4>`;
     Object.entries(features).forEach(([feature, images]) => {

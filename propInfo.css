@@ -1,8 +1,34 @@
 body {
-    font-family: Arial;
-    padding: 20px;
     max-width: 700px;
     margin: auto;
+    background-color: #0759A3;
+    color: white;
+    font-family: "Lato", sans-serif;
+}
+
+#navBar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px 10px 5px 10px
+}
+
+#logo {
+    width: 50px;
+}
+
+#navBar h3{
+    margin-left: 10px;
+    color: #0759A3;
+}
+
+#propIndex{
+    padding: 20px;
+}
+
+#propIndex h4{
+    margin:0%;
+    margin-bottom: 10px;
 }
 
 label {
@@ -37,4 +63,36 @@ button {
 
 .gallery img:hover {
   outline: 2px solid red;
+}
+
+#propertyName{
+    margin-left: 10px;
+}
+
+#address{
+    margin-left: 10px;
+}
+
+#propertyType{
+    margin-left: 10px;
+}
+
+#carpetArea{
+    margin-left: 10px
+}
+
+#floor{
+    margin-left: 10px;
+}
+
+#furnishing{
+    margin-left: 10px;
+}
+
+#ownerName{
+    margin-left: 10px;
+}
+
+#phone{
+    margin-left: 10px;
 }

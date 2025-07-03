@@ -1,0 +1,32 @@
+body{
+    max-width: 700px;
+    margin: auto;
+    background-color: #0759A3;
+    font-family: "Lato", sans-serif;
+}
+
+#navBar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px 10px 5px 10px
+}
+
+#logo {
+    width: 50px;
+}
+
+#navBar h3{
+    margin-left: 10px;
+    color: #0759A3;
+}
+
+#roomIndex{
+    padding: 20px;
+    color: white;
+}
+
+#propIndex h4{
+    margin:0%;
+    margin-bottom: 10px;
+}
