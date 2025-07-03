@@ -1,8 +1,35 @@
 body {
     font-family: Arial;
-    padding: 20px;
     max-width: 700px;
     margin: auto;
+    background-color: #0759A3;
+    color: white;
+      font-family: "Lato", sans-serif;
+}
+
+#navBar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px 10px 5px 10px
+}
+
+#logo {
+    width: 50px;
+}
+
+#navBar h3{
+    margin-left: 10px;
+    color: #0759A3;
+}
+
+#mainIndex{
+    padding: 20px;
+}
+
+#mainIndex h4{
+    margin:0%;
+    margin-bottom: 10px;
 }
 
 label {
@@ -10,7 +37,8 @@ label {
     margin-top: 10px;
 }
 
-video,canvas {
+video,
+canvas {
     width: 100%;
     max-width: 320px;
     display: block;
@@ -27,9 +55,11 @@ button {
     transform: scaleX(-1);
     width: 140px;
     height: 180px;
+    background-color: white;
+    border: black solid 2px;
 }
 
 video.selfie {
-  transform: scaleX(-1); /* Flip preview only */
+    transform: scaleX(-1);
+    /* Flip preview only */
 }
-

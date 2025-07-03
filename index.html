@@ -5,30 +5,39 @@
     <title>Ronal Checks</title>
     <link rel="stylesheet" href="index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h2>User Info</h2>
+    <nav id="navBar">
+      <img src="logoRonal.png" alt="" id="logo">
+      <h3>Ronal Checks</h3>
+    </nav>
 
-    <video id="video" autoplay playsinline class="selfie" style="display:none;"></video>
-    <button onclick="captureSelfie()">Capture Selfie</button>
-    <button id="snapBtn" onclick="takePhoto()" style="display: none;">Take Photo</button>
-    <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
-    <br>
-    <img id="selfiePreview" class="preview"/>
+    <div id="mainIndex">
+      <h4>User Info</h4>
+      <video id="video" autoplay playsinline class="selfie" style="display:none;"></video>
+      <button onclick="captureSelfie()">Capture Selfie</button>
+      <button id="snapBtn" onclick="takePhoto()" style="display: none;">Take Photo</button>
+      <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
+      <br>
+      <img id="selfiePreview" class="preview"/>
 
-    <label>Name: <input type="text" id="name" /></label>
-    <label>Age: <input type="number" id="age" /></label>
+      <label>Name: <input type="text" id="name" /></label>
+      <label>Age: <input type="number" id="age" /></label>
 
-    <label>Gender:</label>
-    <label><input type="radio" name="gender" value="Male" /> Male</label>
-    <label><input type="radio" name="gender" value="Female" /> Female</label>
+      <label>Gender:</label>
+      <label><input type="radio" name="gender" value="Male" /> Male</label>
+      <label><input type="radio" name="gender" value="Female" /> Female</label>
 
-    <label>Hobbies:</label>
-    <label><input type="checkbox" value="Reading" class="hobby" /> Reading</label>
-    <label><input type="checkbox" value="Traveling" class="hobby" />Traveling</label>
-    <label><input type="checkbox" value="Sports" class="hobby" /> Sports</label>
+      <label>Hobbies:</label>
+      <label><input type="checkbox" value="Reading" class="hobby" /> Reading</label>
+      <label><input type="checkbox" value="Traveling" class="hobby" />Traveling</label>
+      <label><input type="checkbox" value="Sports" class="hobby" /> Sports</label>
 
-    <button onclick="goToNext()">Next</button>
+      <button onclick="goToNext()">Next</button>
+    </div>
 
     <script src="index.js"></script>
   </body>
