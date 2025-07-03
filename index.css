@@ -63,3 +63,7 @@ video.selfie {
     transform: scaleX(-1);
     /* Flip preview only */
 }
+
+#video{
+    margin: auto;
+}
