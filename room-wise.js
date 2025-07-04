@@ -153,6 +153,7 @@ function buildRoomInspection() {
       </select>
     </label>
     <div id="hall_balcony_container"></div>
+    <hr>
   `;
   hallDiv.appendChild(hallBalcony);
   section.appendChild(hallDiv);
@@ -174,6 +175,7 @@ function buildRoomInspection() {
       </select>
     </label>
     <div id="kitchen_balcony_container"></div>
+    <hr>
   `;
   kitchenDiv.appendChild(kitchenBalcony);
   section.appendChild(kitchenDiv);
@@ -209,6 +211,7 @@ function buildRoomInspection() {
         </select>
       </label>
       <div id="${room}_bathroom_container"></div>
+      <hr>
     `;
     roomDiv.appendChild(bathCheck);
 
