@@ -136,44 +136,7 @@ function buildRoomInspection() {
   const count = parseInt(bhk[0]);
   const section = document.getElementById("inspectionSection");
 
-  // Bedroom Sections
-  for (let i = 1; i <= count; i++) {
-    const room = `bedroom${i}`;
-    const roomDiv = document.createElement("div");
-    roomDiv.innerHTML = `<h3>Bedroom ${i}</h3>`;
-    roomDiv.appendChild(createFeatureBlock(room, 'switches', 'Switches'));
-    roomDiv.appendChild(createFeatureBlock(room, 'door', 'Doors & Locks'));
-    roomDiv.appendChild(createFeatureBlock(room, 'walls', 'Paint & Walls'));
-    roomDiv.appendChild(createFeatureBlock(room, 'pest', 'Pest Signs'));
-
-    const balconyCheck = document.createElement("div");
-    balconyCheck.innerHTML = `
-      <label>Balcony? 
-        <select onchange="toggleBalcony('${room}', this)">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </label>
-      <div id="${room}_balcony_container"></div>
-    `;
-    roomDiv.appendChild(balconyCheck);
-
-    const bathCheck = document.createElement("div");
-    bathCheck.innerHTML = `
-      <label>Attached Bathroom? 
-        <select onchange="toggleBathroom('${room}', this)">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </label>
-      <div id="${room}_bathroom_container"></div>
-    `;
-    roomDiv.appendChild(bathCheck);
-
-    section.appendChild(roomDiv);
-  }
-
-  // Hall Section
+    // Hall Section
   const hallDiv = document.createElement("div");
   hallDiv.innerHTML = `<h3>Hall</h3>`;
   hallDiv.appendChild(createFeatureBlock("hall", 'switches', 'Switches'));
@@ -214,6 +177,43 @@ function buildRoomInspection() {
   `;
   kitchenDiv.appendChild(kitchenBalcony);
   section.appendChild(kitchenDiv);
+
+  // Bedroom Sections
+  for (let i = 1; i <= count; i++) {
+    const room = `bedroom${i}`;
+    const roomDiv = document.createElement("div");
+    roomDiv.innerHTML = `<h3>Bedroom ${i}</h3>`;
+    roomDiv.appendChild(createFeatureBlock(room, 'switches', 'Switches'));
+    roomDiv.appendChild(createFeatureBlock(room, 'door', 'Doors & Locks'));
+    roomDiv.appendChild(createFeatureBlock(room, 'walls', 'Paint & Walls'));
+    roomDiv.appendChild(createFeatureBlock(room, 'pest', 'Pest Signs'));
+
+    const balconyCheck = document.createElement("div");
+    balconyCheck.innerHTML = `
+      <label>Balcony? 
+        <select onchange="toggleBalcony('${room}', this)">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </label>
+      <div id="${room}_balcony_container"></div>
+    `;
+    roomDiv.appendChild(balconyCheck);
+
+    const bathCheck = document.createElement("div");
+    bathCheck.innerHTML = `
+      <label>Attached Bathroom? 
+        <select onchange="toggleBathroom('${room}', this)">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </label>
+      <div id="${room}_bathroom_container"></div>
+    `;
+    roomDiv.appendChild(bathCheck);
+
+    section.appendChild(roomDiv);
+  }
 }
 
 
