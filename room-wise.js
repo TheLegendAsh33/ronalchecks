@@ -270,10 +270,10 @@ function downloadPDF() {
   html += `<p><strong>Inspection Date & Time:</strong> ${propertyData.inspectionDT}</p>`;
   html += `<p><strong>Owner:</strong> ${ownerData.name}, ${ownerData.phone}</p>`;
 
-  html += `<hr><h3>Room-wise Inspection</h3>`;
+  html += `<hr><h2>Room-wise Inspection</h2>`;
   
   Object.entries(capturedImages).forEach(([room, features]) => {
-    html += `<h4>${room}</h4>`;
+    html += `<h3>${room}</h3>`;
     Object.entries(features).forEach(([feature, images]) => {
       html += `<p><strong>${feature}:</strong></p>`;
       images.forEach(src => {
