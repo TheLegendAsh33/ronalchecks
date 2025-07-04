@@ -51,8 +51,8 @@ function capturePhoto(room, feature, blockId) {
 
   const img = document.createElement("img");
   img.src = dataURL;
-  img.style.width = "200px";
-  img.style.height = "150px";
+  img.style.width = "250px";
+  img.style.height = "200px";
   img.style.margin = "5px";
   img.style.cursor = "pointer";
   img.title = "Click to delete";
