@@ -83,6 +83,7 @@ function createFeatureBlock(room, feature, label) {
     <div id="${blockId}_preview" class="preview-area"></div>
     <label><input type="radio" name="${blockId}_status" value="Good" /> Good</label>
     <label><input type="radio" name="${blockId}_status" value="Fix Required" /> Fix Required</label>
+    <br>
   `;
   return container;
 }
@@ -138,7 +139,7 @@ function buildRoomInspection() {
 
     // Hall Section
   const hallDiv = document.createElement("div");
-  hallDiv.innerHTML = `<h3>Hall</h3>`;
+  hallDiv.innerHTML = `<h2>Hall</h2>`;
   hallDiv.appendChild(createFeatureBlock("hall", 'switches', 'Switches'));
   hallDiv.appendChild(createFeatureBlock("hall", 'door', 'Doors & Locks'));
   hallDiv.appendChild(createFeatureBlock("hall", 'walls', 'Paint & Walls'));
@@ -161,7 +162,7 @@ function buildRoomInspection() {
 
   // Kitchen Section
   const kitchenDiv = document.createElement("div");
-  kitchenDiv.innerHTML = `<h3>Kitchen</h3>`;
+  kitchenDiv.innerHTML = `<h2>Kitchen</h2>`;
   kitchenDiv.appendChild(createFeatureBlock("kitchen", 'sink', 'Sink Area'));
   kitchenDiv.appendChild(createFeatureBlock("kitchen", 'tiles', 'Floor/Walls Tiles'));
   kitchenDiv.appendChild(createFeatureBlock("kitchen", 'chimney', 'Chimney/Exhaust'));
@@ -186,7 +187,7 @@ function buildRoomInspection() {
   for (let i = 1; i <= count; i++) {
     const room = `bedroom${i}`;
     const roomDiv = document.createElement("div");
-    roomDiv.innerHTML = `<h3>Bedroom ${i}</h3>`;
+    roomDiv.innerHTML = `<h2>Bedroom ${i}</h2>`;
     roomDiv.appendChild(createFeatureBlock(room, 'switches', 'Switches'));
     roomDiv.appendChild(createFeatureBlock(room, 'door', 'Doors & Locks'));
     roomDiv.appendChild(createFeatureBlock(room, 'walls', 'Paint & Walls'));
