@@ -84,6 +84,7 @@ function createFeatureBlock(room, feature, label) {
     <label><input type="radio" name="${blockId}_status" value="Good" /> Good</label>
     <label><input type="radio" name="${blockId}_status" value="Fix Required" /> Fix Required</label>
     <br>
+    <br>
   `;
   return container;
 }
