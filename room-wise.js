@@ -51,7 +51,7 @@ function capturePhoto(room, feature, blockId) {
 
   const img = document.createElement("img");
   img.src = dataURL;
-  img.style.width = "250px";
+  img.style.width = "300px";
   img.style.height = "250px";
   img.style.margin = "5px";
   img.style.cursor = "pointer";
