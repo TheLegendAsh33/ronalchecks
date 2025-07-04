@@ -8,7 +8,6 @@ function goToRoomInspection() {
     carpetArea: document.getElementById("carpetArea").value,
     floor: document.getElementById("floor").value,
     furnishing: document.getElementById("furnishing").value,
-    balcony: document.getElementById("balcony").checked ? "Yes" : "No",
     inspectionDT: document.getElementById("inspectionDT").value,
   };
 

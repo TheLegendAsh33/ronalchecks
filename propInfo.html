@@ -16,8 +16,8 @@
   </nav>
 
   <div id="propIndex">
-    <label>Property Name: <input type="text" id="propertyName" /></label><br>
-  <label>Address: <input type="text" id="address" /></label><br>
+    <label>Property Name: <input type="text" id="propertyName" placeholder="ener property name"/></label><br>
+  <label>Address: <br><textarea name="" id="address" placeholder="enter address"></textarea></label><br>
 
   <label>Property Type: 
     <select id="propertyType">
@@ -28,8 +28,8 @@
     </select>
   </label><br>
 
-  <label>Carpet Area (sqft): <input type="number" id="carpetArea" /></label><br>
-  <label>Floor: <input type="number" id="floor" /></label><br>
+  <label>Carpet Area (sqft): <input type="number" id="carpetArea" placeholder="enter carpet area"/></label><br>
+  <label>Floor: <input type="number" id="floor" placeholder="enter floor number"/></label><br>
 
   <label>Furnishing: 
     <select id="furnishing">
@@ -38,8 +38,6 @@
       <option value="unfurnished">Unfurnished</option>
     </select>
   </label><br>
-
-  <label>Balcony: <input type="checkbox" id="balcony" /></label><br>
 
   <label>Inspection Date & Time: <input type="text" id="inspectionDT" readonly /></label><br>
 
@@ -50,8 +48,7 @@
   <label>Owner Name: <input type="text" id="ownerName" /></label><br>
   <label>Phone Number: <input type="tel" id="phone" /></label><br>
 
-  <br>
-  <button onclick="goToRoomInspection()">Next</button>
+  <button onclick="goToRoomInspection()" id="nextButton">Next</button>
   </div>
 
   <script src="propInfo.js"></script>

@@ -23,7 +23,7 @@ body {
 }
 
 #mainIndex{
-    padding: 40px 30px 30px 30px;
+    padding: 30px 30px 30px 30px;
 }
 
 #mainIndex h3{
@@ -87,5 +87,12 @@ video.selfie {
 
 input{
     border: none;
-    padding: 2px;
+    padding: 2px 5px 2px 5px;
+    outline: none;
+    border-radius: 3px;
+}
+
+#nextButton{
+    padding-left: 20px;
+    padding-right: 20px;
 }

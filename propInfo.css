@@ -34,6 +34,7 @@ body {
 label {
     display: block;
     margin-top: 10px;
+    font-weight: 510;
 }
 
 video,
@@ -95,4 +96,41 @@ button {
 
 #phone{
     margin-left: 10px;
+}
+
+input{
+    border: none;
+    padding: 2px 5px 2px 5px;
+    outline: none;
+    border-radius: 3px;
+}
+
+select{
+    border: none;
+    border-radius: 2px;
+    padding: 2px;
+    font-weight: 550;
+}
+
+#nextButton{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 20px;
+    font-weight: 550;
+    margin-top: 0%;
+}
+
+textarea{
+    margin-top: 8px;
+    height: 60px;
+    width: 250px;
+    outline: none;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#inspectionDT{
+    margin-top: 10px;
 }
