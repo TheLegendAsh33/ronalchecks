@@ -154,7 +154,6 @@ function buildRoomInspection() {
       </select>
     </label>
     <div id="hall_balcony_container"></div>
-    <br>
     <hr>
   `;
   hallDiv.appendChild(hallBalcony);
@@ -177,7 +176,6 @@ function buildRoomInspection() {
       </select>
     </label>
     <div id="kitchen_balcony_container"></div>
-    <br>
     <hr>
   `;
   kitchenDiv.appendChild(kitchenBalcony);
@@ -195,6 +193,7 @@ function buildRoomInspection() {
 
     const balconyCheck = document.createElement("div");
     balconyCheck.innerHTML = `
+      <br>
       <label>Balcony? 
         <select onchange="toggleBalcony('${room}', this)">
           <option value="no">No</option>
@@ -207,6 +206,7 @@ function buildRoomInspection() {
 
     const bathCheck = document.createElement("div");
     bathCheck.innerHTML = `
+    <br>
       <label>Attached Bathroom? 
         <select onchange="toggleBathroom('${room}', this)">
           <option value="no">No</option>
@@ -214,7 +214,6 @@ function buildRoomInspection() {
         </select>
       </label>
       <div id="${room}_bathroom_container"></div>
-      <br>
       <hr>
     `;
     roomDiv.appendChild(bathCheck);
