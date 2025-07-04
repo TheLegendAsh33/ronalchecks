@@ -147,6 +147,7 @@ function buildRoomInspection() {
 
   const hallBalcony = document.createElement("div");
   hallBalcony.innerHTML = `
+  <br>
     <label>Balcony? 
       <select onchange="toggleBalcony('hall', this)">
         <option value="no">No</option>
@@ -169,6 +170,7 @@ function buildRoomInspection() {
 
   const kitchenBalcony = document.createElement("div");
   kitchenBalcony.innerHTML = `
+  <br>
     <label>Balcony? 
       <select onchange="toggleBalcony('kitchen', this)">
         <option value="no">No</option>
