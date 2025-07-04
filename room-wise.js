@@ -273,7 +273,7 @@ function downloadPDF() {
     Object.entries(features).forEach(([feature, images]) => {
       html += `<p><strong>${feature}:</strong></p>`;
       images.forEach(src => {
-        html += `<img src="${src}" style="width:150px; height:100px; margin:5px;" />`;
+        html += `<img src="${src}" style="width:300px; height:350px; margin:5px;" />`;
       });
       const status = document.querySelector(`input[name="${room}_${feature}_status"]:checked`);
       html += `<p>Status: ${status ? status.value : 'Not selected'}</p>`;
