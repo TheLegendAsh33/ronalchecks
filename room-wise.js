@@ -255,6 +255,10 @@ function downloadPDF() {
   const ownerData = JSON.parse(sessionStorage.getItem("ownerData"));
 
   let html = `<div style="font-family:Arial; padding:20px;">`;
+  html += `<nav id="navBar" style="display: flex; align-items: center; padding:5px 10px 5px 10px">
+            <img src="logoRonal.png" alt="" id="logo" width="50px">
+            <h3 style="margin-left:10px;">Ronal Checks</h3>
+            </nav>`
   html += `<h2>User Info</h2>`;
   html += selfie;
   html += `<p>Name:</strong> ${name}</p>` ;
@@ -273,7 +277,7 @@ function downloadPDF() {
     Object.entries(features).forEach(([feature, images]) => {
       html += `<p><strong>${feature}:</strong></p>`;
       images.forEach(src => {
-        html += `<img src="${src}" style="width:300px; height:350px; margin:5px;" />`;
+        html += `<img src="${src}" style="width:300px; height:400px; margin:5px;" />`;
       });
       const status = document.querySelector(`input[name="${room}_${feature}_status"]:checked`);
       html += `<p>Status: ${status ? status.value : 'Not selected'}</p>`;
