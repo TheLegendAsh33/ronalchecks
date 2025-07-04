@@ -156,6 +156,7 @@ function buildRoomInspection() {
       </select>
     </label>
     <div id="hall_balcony_container"></div>
+    <br>
     <hr>
   `;
   hallDiv.appendChild(hallBalcony);
@@ -179,6 +180,7 @@ function buildRoomInspection() {
       </select>
     </label>
     <div id="kitchen_balcony_container"></div>
+    <br>
     <hr>
   `;
   kitchenDiv.appendChild(kitchenBalcony);
@@ -217,6 +219,7 @@ function buildRoomInspection() {
         </select>
       </label>
       <div id="${room}_bathroom_container"></div>
+      <br>
       <hr>
     `;
     roomDiv.appendChild(bathCheck);
@@ -263,7 +266,7 @@ function downloadPDF() {
   html += `<p><strong>Inspection Date & Time:</strong> ${propertyData.inspectionDT}</p>`;
   html += `<p><strong>Owner:</strong> ${ownerData.name}, ${ownerData.phone}</p>`;
 
-  html += `<hr/><h3>Room-wise Inspection</h3>`;
+  html += `<hr><h3>Room-wise Inspection</h3>`;
   
   Object.entries(capturedImages).forEach(([room, features]) => {
     html += `<h4>${room}</h4>`;
