@@ -1,7 +1,7 @@
 body {
     max-width: 700px;
     margin: auto;
-    background-color: #0759A3;
+    background-color: #165994;
     color: white;
       font-family: "Lato", sans-serif;
 }
@@ -18,7 +18,7 @@ body {
 }
 
 #navBar h3{
-    margin-left: 10px;
+    margin-left: 20px;
     color: #0759A3;
 }
 
@@ -47,6 +47,9 @@ canvas {
 button {
     margin-top: 10px;
     padding: 10px 15px;
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 20px;
 }
 
 .preview {
@@ -73,6 +76,15 @@ video.selfie {
     margin-left: 10px;
 }
 
-#age{
+#idNumber{
     margin-left: 10px;
+}
+
+p{
+    margin-bottom: 0%;
+}
+
+input{
+    border: none;
+    padding: 2px;
 }
